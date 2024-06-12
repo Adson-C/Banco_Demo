@@ -106,19 +106,82 @@ void criarConta(){
     // falta implementar a funcionalidade
 }
 float atualizacaoTotal(Conta conta){
-    // falta implementar a funcionalidade
+    return conta.saldo + conta.limite;
 }
 Conta buscarContaPorNumero(int numero){
-    // falta implementar a funcionalidade
+    Conta conta;
+    if (contador_contas > 0) {
+        for (int i = 0; i < contador_contas; i++) {
+            if(contas[i].numero == numero) {
+                conta = contas[i];
+        }
+    }   
+ }
+return conta;
 }
 void sacar(Conta conta, float valor){
-    // falta implementar a funcionalidade
+    if (valor > 0 && conta.saldoTotal >= valor) {
+        for (int i = 0; i < contador_contas; i++) {
+            if(contas[i].numero == conta.numero) {
+                if (contas[i].saldo >= valor) {
+                    contas[i].saldoTotal = atualizacaoTotal(contas[i]);
+                    printf("Saque realizado com sucesso!\n");
+                }else {
+                    float restante = contas[i].saldo - valor;
+                    contas[i].limite = contas[i].limite + restante;
+                    contas[i].saldo = 0.0;
+                    contas[i].saldoTotal = atualizacaoTotal(contas[i]);
+                    printf("Saque efetuado com sucesso!\n");
+                }
+            }
+        }
+        
+    }else {
+        printf("Saque não realizado, Tente navamente!\n");
+    }
 }
 void depositar(Conta conta, float valor){
-    // falta implementar a funcionalidade
-}
+    if (valor > 0) {
+        for (int i = 0; i < contador_contas; i++) {
+            if(contas[i].numero == conta.numero) {
+                contas[i].saldo = contas[i].saldo + valor;
+                contas[i].saldoTotal = atualizacaoTotal(contas[i]);
+                printf("Depósito efetuado com sucesso!\n");
+            }
+        }
+    }else {
+        printf("Deposito não realizado, Tente navamente!\n");
+    }
+}   
 void transferir(Conta conta_origem, Conta conta_destino, float valor){
-    // falta implementar a funcionalidade
+    if (valor > 0 && conta_origem.saldoTotal >= valor) {
+        for (int co = 0; co < contador_contas; co++) {
+            if (contas[co].numero == conta_origem.numero){
+                for (int cd = 0; cd < contador_contas; cd++){
+                    if (contas[cd].numero == conta_destino.numero){
+                        if (contas[co].saldo >= valor) {
+                            contas[co].saldo = contas[co].saldo - valor;
+                            contas[cd].saldo = contas[cd].saldo + valor;
+                            contas[co].saldoTotal = atualizacaoTotal(contas[co]);
+                            contas[cd].saldoTotal = atualizacaoTotal(contas[cd]);
+                            printf("Transferência efetuada com sucesso!\n");
+                        }else {
+                            float restante = contas[co].saldo - valor;
+                            contas[co].limite = contas[co].limite + restante;
+                            contas[co].saldo = 0.0;
+                            contas[cd].saldo = contas[cd].saldo + valor;
+                            contas[co].saldoTotal = atualizacaoTotal(contas[co]);
+                            contas[cd].saldoTotal = atualizacaoTotal(contas[cd]);
+                            printf("Transferência efetuada com sucesso!\n");
+                        }
+                    }
+                }
+            }
+        }
+
+    }else {
+        printf("Transferência não efetuada, Tente navamente!\n");
+    }
 }
 void efetuarSaque(){
     // falta implementar a funcionalidade
