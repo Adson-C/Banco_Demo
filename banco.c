@@ -168,7 +168,7 @@ void criarConta(){
 	printf("\n");
 	infoConta(contas[contador_contas]);
 	contador_contas++;
-	Sleep();
+	Sleep(4000);
 	menu();
 }
 float atualizacaoTotal(Conta conta){
@@ -250,10 +250,54 @@ void transferir(Conta conta_origem, Conta conta_destino, float valor){
     }
 }
 void efetuarSaque(){
-    // falta implementar a funcionalidade
+    if (contador_contas > 0) {
+        int numero;
+        printf("Infome número da conta: \n");
+        scanf("%d", &numero);
+
+        Conta conta = buscarContaPorNumero(numero);
+        if (conta.numero == numero) {
+            float valor;
+            printf("Infome o valor do saque: \n");
+
+            scanf("%f", &valor);
+            sacar(conta, valor);
+
+        }else {
+            printf("Não foi emcontrado uma conta com este número %d!\n", numero);
+        }
+
+    }else {
+        printf("Ainda não existem contas para saque!\n");
+    }
+
+    Sleep(2000);
+    menu();
 }
 void efetuarDeposito(){
-    // falta implementar a funcionalidade
+    if (contador_contas > 0) {
+        int numero;
+        printf("Infome número da conta: \n");
+        scanf("%d", &numero);
+
+        Conta conta = buscarContaPorNumero(numero);
+        if (conta.numero == numero) {
+            float valor;
+            printf("Infome o valor do depósito: \n");
+
+            scanf("%f", &valor);
+            depositar(conta, valor);
+
+        }else {
+            printf("Não foi emcontrado uma conta com este número %d!\n", numero);
+        }
+
+    }else {
+        printf("Ainda não existem contas para o depósito!\n");
+    }
+
+    Sleep(2000);
+    menu();
 }
 void efetuarTransferencia(){
     // falta implementar a funcionalidade
