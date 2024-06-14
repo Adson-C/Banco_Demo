@@ -103,7 +103,73 @@ void infoConta(Conta conta){
     strtok(conta.cliente.dataNasciimento, "\n"), strtok(conta.cliente.dataCadstro, "\n"), conta.saldoTotal);
 }
 void criarConta(){
-    // falta implementar a funcionalidade
+    Cliente cliente;
+
+	// Data de cadastro
+	char dia[3]; //06\0
+	char mes[3]; //08
+	char ano[5]; //2024
+	char data_cadastro[20];
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+
+	// dia
+	if (tm.tm_mday < 10){
+		sprintf(dia, "0%d", tm.tm_mday); // 1,2,3,4,5,6,7,8,9 -> 01/05/2022
+	}else{
+		sprintf(dia, "%d", tm.tm_mday);
+	}
+	// mes
+	if (tm.tm_mon + 1 < 10){
+		sprintf(mes, "0%d", tm.tm_mon + 1); // 01/05/2022
+	}else{
+		sprintf(mes, "%d", tm.tm_mon + 1);
+	}
+	// ano
+	sprintf(ano, "%d", tm.tm_year + 1900);
+
+	strcpy(data_cadastro, "");
+	strcat(data_cadastro, dia); // 06
+	strcat(data_cadastro, "/"); // 06/
+	strcat(data_cadastro, mes); // 06/08
+	strcat(data_cadastro, "/"); // 06/08/
+	strcat(data_cadastro, ano); // 06/08/2022
+	strcat(data_cadastro, "\0"); // 06/08/2022\0 finaliza a string
+	strcpy(cliente.dataCadstro, data_cadastro);
+
+	// Cria o cliente
+	printf("Informe os dados do cliente: \n");
+	cliente.codigo = contador_clientes + 1;
+
+	printf("Nome do cliente: \n");
+	fgets(cliente.nome, 50, stdin);
+
+	printf("E-mail do cliente: \n");
+	fgets(cliente.email, 50, stdin);
+
+	printf("CPF do cliente: \n");
+	fgets(cliente.cpf, 20, stdin);
+
+	printf("Data de nascimento do cliente: \n");
+	fgets(cliente.dataNasciimento, 20, stdin);
+
+	contador_clientes++;
+
+	// Criar a conta
+	contas[contador_contas].numero = contador_contas + 1;
+	contas[contador_contas].cliente = cliente;
+	contas[contador_contas].saldo = 0.0;
+	contas[contador_contas].limite = 0.0;
+	contas[contador_contas].saldoTotal = atualizaSaldoTotal(contas[contador_contas]);
+
+	printf("Conta criada com sucesso! \n");
+	printf("\n");
+	printf("Dados da conta criada: \n");
+	printf("\n");
+	infoConta(contas[contador_contas]);
+	contador_contas++;
+	Sleep();
+	menu();
 }
 float atualizacaoTotal(Conta conta){
     return conta.saldo + conta.limite;
