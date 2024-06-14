@@ -300,8 +300,47 @@ void efetuarDeposito(){
     menu();
 }
 void efetuarTransferencia(){
-    // falta implementar a funcionalidade
+    if (contador_contas > 0) {
+        int numero_origem, numero_destino;
+        printf("Infome o número da sua conta: \n");
+        scanf("%d", &numero_origem);
+
+        Conta conta_origem = buscarContaPorNumero(numero_origem);
+
+        if (conta_origem.numero == numero_origem) {
+            printf("Infome o número da conta de destino: \n");
+            scanf("%d", &numero_destino);
+
+            Conta conta_destino = buscarContaPorNumero(numero_destino);
+
+            if (conta_destino.numero == numero_destino) {
+                float valor;
+                printf("Infome o valor da transferência: \n");
+                scanf("%f", &valor);
+
+                transferir(conta_origem, conta_destino, valor);
+            }else {
+                printf("Não foi emcontrado uma conta com este número %d!\n", numero_destino);
+            }
+            }else {
+                printf("A conta com número %d não foi encontrada %d!\n", numero_origem);
+            }
+    }else {
+        printf("Ainda não existem contas para transferência!\n");
+    }
+    Sleep(2000);
+    menu();
 }
 void listarConta(){
-    // falta implementar a funcionalidade
+    if (contador_contas > 0) {
+        for (int co = 0; co < contador_contas; co++) {
+            infoConta(contas[co]);
+            printf("\n");
+            Sleep(1000);
+        }
+    }else {
+        printf("Não existem contas cadastradas ainda!\n");
+    }
+    Sleep(2000);
+    menu();
 }
