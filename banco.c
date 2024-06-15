@@ -160,7 +160,7 @@ void criarConta(){
 	contas[contador_contas].cliente = cliente;
 	contas[contador_contas].saldo = 0.0;
 	contas[contador_contas].limite = 0.0;
-	contas[contador_contas].saldoTotal = atualizaSaldoTotal(contas[contador_contas]);
+	contas[contador_contas].saldoTotal = atualizacaoTotal(contas[contador_contas]);
 
 	printf("Conta criada com sucesso! \n");
 	printf("\n");
@@ -323,7 +323,7 @@ void efetuarTransferencia(){
                 printf("Não foi emcontrado uma conta com este número %d!\n", numero_destino);
             }
             }else {
-                printf("A conta com número %d não foi encontrada %d!\n", numero_origem);
+                printf("A conta com número %d não foi encontrada!\n", numero_origem);
             }
     }else {
         printf("Ainda não existem contas para transferência!\n");
